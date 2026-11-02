@@ -20,3 +20,8 @@ export const MQ = {
 } as const
 
 export { gsap, ScrollTrigger, useGSAP }
+
+// Dev-only handle for debugging trigger positions from the console.
+if (import.meta.env.DEV) {
+  Object.assign(window, { ScrollTrigger })
+}

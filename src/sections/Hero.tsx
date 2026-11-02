@@ -8,6 +8,7 @@ import { PointerLayer } from '../components/depth/PointerLayer'
 import { HeroVisual } from '../components/three/HeroVisual'
 import { Button } from '../components/ui/Button'
 import { Container } from '../components/ui/Container'
+import { HeadlineLines } from '../components/ui/HeadlineLines'
 import { SectionLabel } from '../components/ui/SectionLabel'
 
 /*
@@ -34,7 +35,7 @@ export function Hero() {
           .timeline({ defaults: { ease: 'expo.out', duration: 1.4 } })
           .from('[data-hero-bg]', { opacity: 0, duration: 2.4, ease: 'power2.out' }, 0)
           .from('[data-hero-visual]', { opacity: 0, scale: 0.94, duration: 2.2 }, 0.1)
-          .from('[data-hero-line]', { yPercent: 115, stagger: 0.09 }, 0.25)
+          .from('[data-line]', { yPercent: 115, stagger: 0.09 }, 0.25)
           .from('[data-hero-fade]', { opacity: 0, y: 18, stagger: 0.08, duration: 1.1 }, 0.7)
 
         // Scroll-out: layers separate at different speeds.
@@ -97,24 +98,7 @@ export function Hero() {
 
             <PointerLayer depth={1} strength={16}>
               <h1 id="hero-title" className="font-display text-display font-medium">
-                {hero.headline.map((line, lineIndex) => (
-                  <span key={lineIndex} className="block overflow-hidden pr-[0.12em] pb-[0.1em] -mb-[0.1em]">
-                    <span data-hero-line className="block">
-                      {line.map((segment, index) =>
-                        'accent' in segment && segment.accent ? (
-                          <em
-                            key={index}
-                            className="font-serif font-normal tracking-[-0.02em] text-iris-300"
-                          >
-                            {segment.text}
-                          </em>
-                        ) : (
-                          <span key={index}>{segment.text}</span>
-                        ),
-                      )}
-                    </span>
-                  </span>
-                ))}
+                <HeadlineLines lines={hero.headline} />
               </h1>
             </PointerLayer>
 

@@ -13,6 +13,7 @@ export function useScrollTo() {
 
   return useCallback(
     (hash: string) => {
+      if (hash.length < 2) return
       const target = hash === '#top' ? null : document.querySelector<HTMLElement>(hash)
       if (hash !== '#top' && !target) return
 
