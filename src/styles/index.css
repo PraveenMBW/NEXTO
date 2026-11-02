@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Design tokens
+ * ------------------------------------------------------------------------- */
+@theme {
+  /* Surfaces */
+  --color-ink-950: #07080a;
+  --color-ink-900: #0e1013;
+  --color-ink-800: #171a1f;
+  --color-ink-700: #22262d;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  /* Text */
+  --color-bone-100: #edebe6;
+  --color-bone-400: #9a978f;
+
+  /* Accent (iris) + ambient-only warm light (ember — never used for text) */
+  --color-iris-300: #a99eff;
+  --color-iris-400: #8b7cff;
+  --color-ember-400: #ff8a4c;
+
+  /* Type */
+  --font-display: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --text-display: clamp(3.25rem, 9vw, 9.5rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.045em;
+
+  --text-headline: clamp(2.25rem, 5.5vw, 5.5rem);
+  --text-headline--line-height: 0.95;
+  --text-headline--letter-spacing: -0.035em;
+
+  /* Motion */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------- */
+@layer base {
+  html {
+    background-color: var(--color-ink-950);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-bone-100);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-iris-400);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-iris-400);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Native smooth scrolling only when Lenis is not running and motion is OK. */
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Utilities
+ * ------------------------------------------------------------------------- */
+
+/* Static film grain — a tiny tiled SVG, never animated. */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+@utility animate-scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-in-out-quad) infinite;
+}
